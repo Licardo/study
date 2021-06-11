@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'com.liepu.plugin'
+
+android {
+        compileSdkVersion 30
+        buildToolsVersion "30.0.2"
+
+        defaultConfig {
+          applicationId "com.liepu.fluttermix"
+          minSdkVersion 21
+          targetSdkVersion 30
+          versionCode 1
+          versionName "1.0"
+
+          testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    arguments = [ orange : 'com.liepu.fluttermix.LPAnnotation' ]
+                }
+            }
+        }
+
+        buildTypes {
+           release {
+               minifyEnabled false
+               proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+           }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+            sourceCompatibility
+            targetCompatibility
+        }
+    }
+
+  dependencies {
+      implementation 'androidx.appcompat:appcompat:1.2.0'
+      implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+      implementation 'com.google.android.material:material:1.4.0-beta01'
+      implementation project(path: ':flutter')
+//      implementation 'com.liepu.study:flutter_release:1.0'
+//      implementation 'io.flutter.plugins.sharedpreferences:shared_preferences_release:2.0.6'
+
+
+      implementation project(':lib-annotation')
+      implementation 'androidx.asynclayoutinflater:asynclayoutinflater:1.0.0'
+      annotationProcessor project(':lib-compiler')
+//      implementation project(':lib_plugin')
+      implementation "androidx.core:core-ktx:+"
+      implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  }
+repositories {
+    mavenCentral()
+}

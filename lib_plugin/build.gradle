@@ -1,0 +1,37 @@
+plugins {
+    id 'java-library'
+    id 'groovy'
+    id 'maven'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:4.0.0'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom {
+                groupId = 'com.liepu.plugin'
+                artifactId = 'trace'
+                version = '1.0'
+                repository(
+                        url: uri('../repo')
+                )
+            }
+        }
+    }
+}

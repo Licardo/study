@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.liepu.fluttermix">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".MixApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FlutterMix">
+        <activity android:name=".RecyclerActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:theme="@style/LaunchTheme"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/ic_launcher_background" />
+        </activity>
+
+        <activity android:name=".FlutterWrapperActivity"
+            android:hardwareAccelerated="true"
+            >
+        </activity>
+        <service
+            android:name=".NotificationService"
+            android:enabled="true"
+            android:exported="false" />
+        <service android:name=".RecyclerService" />
+
+        <receiver android:name=".StaticBroadcastReceiver">
+            <intent-filter>
+                <action android:name="111" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

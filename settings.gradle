@@ -1,0 +1,13 @@
+include ':lib_plugin'
+include ':lib-compiler'
+include ':lib-annotation'
+include ':app'
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+  settingsDir,
+  'study/.android/include_flutter.groovy'
+))
+rootProject.name = "FlutterMix"
+
+include ':study'
+
