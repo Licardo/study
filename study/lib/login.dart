@@ -33,9 +33,16 @@ class LoginWidget extends StatelessWidget {
 
 class CounnterModel with ChangeNotifier {
   int _count = 0;
+  Color _themeColor = Colors.blue;
   get counter => _count;
   void add() {
     _count++;
+    notifyListeners();
+  }
+
+  get themeColor => _themeColor;
+  switchTheme(Color color) {
+    _themeColor = color;
     notifyListeners();
   }
 }

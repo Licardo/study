@@ -47,7 +47,10 @@ class UserCenterState extends State<UserCenterWidget> {
                   });
                 }
             ),
-            Image.asset("name")
+            RaisedButton(
+              child: Text('click'),
+              onPressed: ()=> Navigator.pushNamed(context, "theme"),
+            )
           ],
         ),
       )
