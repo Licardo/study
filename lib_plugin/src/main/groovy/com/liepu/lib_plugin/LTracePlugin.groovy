@@ -8,7 +8,8 @@ class LTracePlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
+        project.extensions.create("methodConfig", ConfigInfo.class)
         def exten = project.extensions.findByType(AppExtension.class)
-        exten.registerTransform(new TraceTransformer())
+        exten.registerTransform(new TraceTransformer(project))
     }
 }

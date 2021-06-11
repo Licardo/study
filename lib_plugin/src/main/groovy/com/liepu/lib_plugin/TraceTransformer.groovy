@@ -6,6 +6,8 @@ import com.android.build.api.transform.Transform
 import com.android.build.api.transform.TransformException
 import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.internal.pipeline.TransformManager
+import org.gradle.api.Project
+
 import java.io.FileOutputStream;
 import com.android.utils.FileUtils
 import org.objectweb.asm.ClassReader
@@ -14,6 +16,11 @@ import org.objectweb.asm.ClassWriter
 
 
 class TraceTransformer extends Transform {
+    private Project project
+
+    TraceTransformer(Project project) {
+        this.project = project
+    }
 
     @Override
     String getName() {
@@ -40,6 +47,9 @@ class TraceTransformer extends Transform {
         super.transform(transformInvocation)
         println('-------------------------start-----------------------------')
 
+        def configInfo = project.extensions.findByType(ConfigInfo.class)
+
+        println(">>> ${configInfo.className}+${configInfo.methodName}")
         transformInvocation.inputs.each {
 //            println(">>>$it")
             it.directoryInputs.each { input ->
@@ -48,10 +58,10 @@ class TraceTransformer extends Transform {
 //                println(">>> ${fileList}")
                 fileList.each {file ->
                     println(">>>${file.name}")
-                    if (file.name.endsWith('.class') && !file.name.contains('Service') && !file.name.contains('FlutterWrapperActivity')) {
+                    if (file.name.contains(configInfo.className)) {
                         ClassReader classReader = new ClassReader(file.readBytes())
                         ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-                        ClassVisitor visitor = new LClassVisitor(classWriter)
+                        ClassVisitor visitor = new LClassVisitor(configInfo.methodName, classWriter)
                         classReader.accept(visitor, ClassReader.SKIP_DEBUG)
                         byte[] data = classWriter.toByteArray()
 

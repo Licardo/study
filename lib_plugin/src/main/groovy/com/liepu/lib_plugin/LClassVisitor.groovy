@@ -7,11 +7,13 @@ import org.objectweb.asm.Opcodes
 
 class LClassVisitor extends ClassVisitor implements Opcodes{
 
-    private ClassVisitor classVisitor;
+    private ClassVisitor classVisitor
+    private String methodName;
 
-    LClassVisitor(ClassVisitor classVisitor) {
+    LClassVisitor(String methodName, ClassVisitor classVisitor) {
         super(Opcodes.ASM5, classVisitor)
-        this.classVisitor = classVisitor;
+        this.classVisitor = classVisitor
+        this.methodName = methodName
     }
 
     @Override
@@ -25,8 +27,8 @@ class LClassVisitor extends ClassVisitor implements Opcodes{
     MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor methodVisitor = classVisitor.visitMethod(access, name, descriptor, signature, exceptions)
         println(">>> $name")
-        if ("<init>" == name || methodVisitor == null) {
-            return methodVisitor;
+        if ("<init>" == name || methodName != name || methodVisitor == null) {
+            return methodVisitor
         }
         methodVisitor = new LMethodVisitor(methodVisitor)
         return methodVisitor

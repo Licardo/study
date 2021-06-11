@@ -4,6 +4,11 @@ plugins {
 apply plugin: 'kotlin-android'
 apply plugin: 'com.liepu.plugin'
 
+methodConfig {
+    className 'MainActivity'
+    methodName 'onCreate'
+}
+
 android {
         compileSdkVersion 30
         buildToolsVersion "30.0.2"
